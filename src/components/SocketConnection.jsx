@@ -29,7 +29,7 @@ const SocketConnection = () => {
     const loadPrevNotification = async () => {
       try {
         const unseenNotificaton = await fetch(
-          `http://localhost:3000/api/notification/${currentUser._id}`,
+          `api/notification/${currentUser._id}`,
           {
             credentials: "include", // This is crucial
           }
@@ -54,14 +54,11 @@ const SocketConnection = () => {
   //=========== Store notifications to DB =============//
   const sendNotificationToDB = async (notificationData) => {
     try {
-      const sendNotification = await fetch(
-        "http://localhost:3000/api/notification/create",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(notificationData),
-        }
-      );
+      const sendNotification = await fetch("api/notification/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(notificationData),
+      });
       const response = await sendNotification.json();
       if (response.success === false) {
         console.log(response);
