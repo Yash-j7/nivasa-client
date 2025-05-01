@@ -175,33 +175,50 @@ const Profile = () => {
     const loadPost = async () => {
       try {
         setUserPostLoading(true);
+
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/users/posts/${currentUser._id}`
+          `${import.meta.env.VITE_API_BASE_URL}/users/posts/${currentUser._id}`,
+          {
+            method: "GET",
+            credentials: "include", // Include cookies for authentication
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if required
+            },
+          }
         );
-        const data = await res.json();
-        if (data.success === false) {
-          toast.error(data.message, {
+
+        if (!res.ok) {
+          // Handle non-2xx HTTP statuses
+          const errorData = await res.json();
+          toast.error(errorData.message || "Failed to load posts", {
             autoClose: 2000,
           });
-          setUserPostLoading(false);
           dispatch(signoutSuccess());
-        } else {
-          setUserPost({
-            ...userPosts,
-            isPostExist: true,
-            posts: data,
-          });
-          setUserPostLoading(false);
+          return;
         }
+
+        const data = await res.json();
+        setUserPost({
+          ...userPosts,
+          isPostExist: true,
+          posts: data,
+        });
       } catch (error) {
-        toast.error(error.message, {
+        // Handle network errors
+        console.error("Error loading posts:", error);
+        toast.error("Unable to load posts. Please try again.", {
           autoClose: 2000,
         });
+      } finally {
         setUserPostLoading(false);
       }
     };
-    loadPost();
-  }, []);
+
+    if (currentUser?._id) {
+      loadPost(); // Only call if currentUser is defined
+    }
+  }, [currentUser?._id, dispatch]); // Removed userPosts
 
   // ======Handling User Post DELETE  =====//
   const handlePostDelete = async (postId) => {
