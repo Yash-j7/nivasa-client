@@ -147,42 +147,22 @@ const Profile = () => {
     }
   };
 
-  const handleLogOut = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
-        {
-          method: "POST", // Changed to POST
-          credentials: "include", // Include cookies if needed
-        }
-      );
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signoutFailed(data.message));
-        toast.error(data.message, { autoClose: 2000 });
-      } else {
-        dispatch(signoutSuccess());
-        dispatch(clearSavedListing());
-      }
-    } catch (error) {
-      dispatch(signoutFailed(error.message));
-      toast.error(error.message, { autoClose: 2000 });
-    }
-  };
-
   // ======Loading User Posts  =====//
   useEffect(() => {
     const loadPost = async () => {
       try {
         setUserPostLoading(true);
 
+        // Get token from localStorage
+        const token = localStorage.getItem("token");
+
         const res = await fetch(
           `${import.meta.env.VITE_API_BASE_URL}/users/posts/${currentUser._id}`,
           {
             method: "GET",
-            credentials: "include", // Include cookies for authentication
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Add Authorization header
             },
           }
         );
@@ -192,6 +172,10 @@ const Profile = () => {
           toast.error(errorData.message || "Failed to load posts", {
             autoClose: 2000,
           });
+
+          // Clear invalid token and logout
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
           dispatch(signoutSuccess());
           return;
         }

@@ -37,23 +37,20 @@ const SingIn = () => {
       );
       const userData = await res.json();
 
-      //===checking reqest success or not ===//
       if (userData.success === false) {
         dispatch(signinFailed(userData.message));
-
-        //===showing error in tostify====//
-        toast.error(userData.message, {
-          autoClose: 2000,
-        });
+        toast.error(userData.message, { autoClose: 2000 });
       } else {
+        // Store token and user data in localStorage
+        localStorage.setItem("token", userData.token);
+        localStorage.setItem("user", JSON.stringify(userData.rest));
+
         dispatch(signinSuccess(userData));
         navigate("/home");
       }
     } catch (error) {
       dispatch(signinFailed(error.message));
-      toast.error(userData.message, {
-        autoClose: 2000,
-      });
+      toast.error(error.message, { autoClose: 2000 });
     }
   };
 
