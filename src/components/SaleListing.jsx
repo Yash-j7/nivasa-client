@@ -18,7 +18,9 @@ const SaleListing = () => {
     (async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/posts?type=sale`);
+        const res = await fetch(
+          `${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/posts?type=sale`
+        );
         const json = await res.json();
         if (json.success === false) {
           setLoading(false);

@@ -17,7 +17,11 @@ const OfferedListing = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/posts?type=all&offer=true`);
+        const res = await fetch(
+          `${
+            import.meta.env.REACT_APP_SERVER_BASE_URL
+          }/api/posts?type=all&offer=true`
+        );
         const json = await res.json();
         if (json.success === false) {
           console.log("Failed to fetch listings");

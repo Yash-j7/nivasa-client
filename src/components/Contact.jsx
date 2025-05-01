@@ -18,7 +18,11 @@ const Contact = ({ listing }) => {
     if (listing?.userRef) {
       (async () => {
         setLoading(true);
-        const res = await fetch(`/api/users/${listing.userRef}`);
+        const res = await fetch(
+          `${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/users/${
+            listing.userRef
+          }`
+        );
         const json = await res.json();
         if (json.success === false) {
           setLoading(false);
@@ -44,14 +48,17 @@ const Contact = ({ listing }) => {
 
     try {
       setSending(true);
-      const res = await fetch("/api/conversation/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.token}`, // Replace with your token logic
-        },
-        body: JSON.stringify(conversationApiData),
-      });
+      const res = await fetch(
+        "${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/conversation/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser.token}`, // Replace with your token logic
+          },
+          body: JSON.stringify(conversationApiData),
+        }
+      );
       const json = await res.json();
       //===checking reqest success or not ===//
       if (json.success === false) {
@@ -59,15 +66,18 @@ const Contact = ({ listing }) => {
         setSending(false);
       } else {
         // IF Conversation created successfully
-        const resMsg = await fetch("/api/message/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sender: currentUser._id,
-            receiver: listing.userRef,
-            message: message,
-          }),
-        });
+        const resMsg = await fetch(
+          "${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/message/create",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              sender: currentUser._id,
+              receiver: listing.userRef,
+              message: message,
+            }),
+          }
+        );
         const msgJson = await resMsg.json();
         //===checking Message request success or not ===//
         if (msgJson.success === false) {
