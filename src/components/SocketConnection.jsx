@@ -28,16 +28,23 @@ const SocketConnection = () => {
   useEffect(() => {
     const loadPrevNotification = async () => {
       try {
+        const token = localStorage.getItem("token");
+
         const unseenNotificaton = await fetch(
           `${import.meta.env.VITE_API_BASE_URL}/notification/${
             currentUser._id
           }`,
           {
-            credentials: "include", // This is crucial
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Add Authorization header
+            },
           }
         );
         const res = await unseenNotificaton.json();
         if (!unseenNotificaton.ok) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
           throw new Error(res.message || "Failed to fetch notifications");
         }
         if (res.success === false) {
