@@ -18,6 +18,7 @@ const OfferedListing = () => {
       try {
         setLoading(true);
         const res = await fetch(`/api/posts?type=all&offer=true`);
+        console.log(`/api/posts?type=all&offer=true`);
         const json = await res.json();
         if (json.success === false) {
           console.log("Failed to fetch listings");
