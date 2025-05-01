@@ -147,6 +147,29 @@ const Profile = () => {
     }
   };
 
+  const handleLogOut = async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
+        {
+          method: "POST", // Changed to POST
+          credentials: "include", // Include cookies if needed
+        }
+      );
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signoutFailed(data.message));
+        toast.error(data.message, { autoClose: 2000 });
+      } else {
+        dispatch(signoutSuccess());
+        dispatch(clearSavedListing());
+      }
+    } catch (error) {
+      dispatch(signoutFailed(error.message));
+      toast.error(error.message, { autoClose: 2000 });
+    }
+  };
+
   // ======Loading User Posts  =====//
   useEffect(() => {
     const loadPost = async () => {
