@@ -356,11 +356,11 @@ const CreatePost = () => {
                           Regular Price{" "}
                         </p>
                         <span className="text-sm font-content font-bold text-red-900">
-                          ($ /month)
+                          (₹ /month)
                         </span>
                         <div className="flex flex-row mt-2 ">
                           <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">
-                            $
+                            ₹
                           </span>
                           <input
                             id="price"
