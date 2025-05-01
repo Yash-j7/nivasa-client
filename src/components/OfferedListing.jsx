@@ -17,7 +17,9 @@ const OfferedListing = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/posts?type=all&offer=true`);
+        const res = await fetch(
+          `http://43.204.115.99:3000/api/posts?type=all&offer=true`
+        );
         console.log(`/api/posts?type=all&offer=true`);
         const json = await res.json();
         if (json.success === false) {

@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: apiBase,
+        target: "http://43.204.115.99:3000",
         secure: false,
         changeOrigin: true,
       },
