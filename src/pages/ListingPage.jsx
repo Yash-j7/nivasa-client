@@ -128,6 +128,10 @@ const ListingPage = () => {
         `${import.meta.env.VITE_API_BASE_URL}/posts/delete/${postId}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const data = await res.json();

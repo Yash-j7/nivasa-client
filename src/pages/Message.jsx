@@ -33,7 +33,16 @@ const Message = () => {
       try {
         setConversationLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/conversation/${currentUser._id}`
+          `${import.meta.env.VITE_API_BASE_URL}/conversation/${
+            currentUser._id
+          }`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         const getConversations = await res.json();
         if (getConversations.success === false) {
