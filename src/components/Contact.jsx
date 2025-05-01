@@ -19,7 +19,14 @@ const Contact = ({ listing }) => {
       (async () => {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/users/${listing.userRef}`
+          `${import.meta.env.VITE_API_BASE_URL}/users/${listing.userRef}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         const json = await res.json();
         if (json.success === false) {
@@ -52,7 +59,7 @@ const Contact = ({ listing }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser.token}`, // Replace with your token logic
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(conversationApiData),
         }
@@ -68,7 +75,10 @@ const Contact = ({ listing }) => {
           `${import.meta.env.VITE_API_BASE_URL}/message/create`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
             body: JSON.stringify({
               sender: currentUser._id,
               receiver: listing.userRef,

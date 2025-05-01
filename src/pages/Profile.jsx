@@ -83,13 +83,20 @@ const Profile = () => {
     // setLoading(true)
     try {
       dispatch(loddingStart());
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Token not found. Please log in again.", {
+          autoClose: 2000,
+        });
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/users/update/${currentUser._id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser.access_token}`,
+            Authorization: `Bearer ${token}`, // Add Authorization header
           },
           body: JSON.stringify(formData),
         }
@@ -121,10 +128,21 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       dispatch(loddingStart());
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Token not found. Please log in again.", {
+          autoClose: 2000,
+        });
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/users/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
         }
       );
       const resData = await res.json();
@@ -149,11 +167,21 @@ const Profile = () => {
 
   const handleLogOut = async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Token not found. Please log in again.", {
+          autoClose: 2000,
+        });
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
         {
           method: "POST", // Changed to POST
-          credentials: "include", // Include cookies if needed
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          }, // Include cookies if needed
         }
       );
       const data = await res.json();
@@ -227,12 +255,18 @@ const Profile = () => {
   // ======Handling User Post DELETE  =====//
   const handlePostDelete = async (postId) => {
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/posts/delete/${postId}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
         }
       );
+
       const data = await res.json();
 
       //===checking reqest success or not ===//

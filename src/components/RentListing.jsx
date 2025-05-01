@@ -18,7 +18,11 @@ const RentListing = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/posts?type=rent`
+          `${import.meta.env.VITE_API_BASE_URL}/posts?type=rent`,
+          {
+            method: "GET",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
         );
         const json = await res.json();
         if (json.success === false) {

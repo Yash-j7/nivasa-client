@@ -24,7 +24,7 @@ const MobileMenu = ({ menuStatus }) => {
         `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
         {
           method: "POST", // Changed to POST
-          credentials: "include", // Include cookies if needed
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       );
       const data = await res.json();

@@ -29,10 +29,19 @@ const Chat = ({ conversationInfo }) => {
     (async () => {
       try {
         setMessageLoading(true);
+        const token = localStorage.getItem("token");
+
         const res = await fetch(
           `${import.meta.env.VITE_API_BASE_URL}/message?sender=${
             trackConversation.sender
-          }&receiver=${trackConversation.receiver}`
+          }&receiver=${trackConversation.receiver}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const getMessages = await res.json();
 
@@ -100,7 +109,11 @@ const Chat = ({ conversationInfo }) => {
         `${import.meta.env.VITE_API_BASE_URL}/message/create`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
           body: JSON.stringify({
             sender: currentUser._id,
             receiver: trackConversation.conversationActive,
@@ -131,6 +144,7 @@ const Chat = ({ conversationInfo }) => {
         `${import.meta.env.VITE_API_BASE_URL}/conversation/delete/${_id}`,
         {
           method: "DELETE",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       );
       if (deleteChat.ok) {
