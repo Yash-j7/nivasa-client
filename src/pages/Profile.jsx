@@ -150,23 +150,23 @@ const Profile = () => {
   const handleLogOut = async () => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/signout`
+        `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
+        {
+          method: "POST", // Changed to POST
+          credentials: "include", // Include cookies if needed
+        }
       );
       const data = await res.json();
       if (data.success === false) {
         dispatch(signoutFailed(data.message));
-        toast.error(data.message, {
-          autoClose: 2000,
-        });
+        toast.error(data.message, { autoClose: 2000 });
       } else {
         dispatch(signoutSuccess());
         dispatch(clearSavedListing());
       }
     } catch (error) {
       dispatch(signoutFailed(error.message));
-      toast.error(error.message, {
-        autoClose: 2000,
-      });
+      toast.error(error.message, { autoClose: 2000 });
     }
   };
 
@@ -183,13 +183,11 @@ const Profile = () => {
             credentials: "include", // Include cookies for authentication
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if required
             },
           }
         );
 
         if (!res.ok) {
-          // Handle non-2xx HTTP statuses
           const errorData = await res.json();
           toast.error(errorData.message || "Failed to load posts", {
             autoClose: 2000,
@@ -205,7 +203,6 @@ const Profile = () => {
           posts: data,
         });
       } catch (error) {
-        // Handle network errors
         console.error("Error loading posts:", error);
         toast.error("Unable to load posts. Please try again.", {
           autoClose: 2000,
@@ -216,9 +213,9 @@ const Profile = () => {
     };
 
     if (currentUser?._id) {
-      loadPost(); // Only call if currentUser is defined
+      loadPost();
     }
-  }, [currentUser?._id, dispatch]); // Removed userPosts
+  }, [currentUser?._id, dispatch]);
 
   // ======Handling User Post DELETE  =====//
   const handlePostDelete = async (postId) => {
