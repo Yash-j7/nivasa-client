@@ -87,7 +87,10 @@ const Profile = () => {
         `${import.meta.env.VITE_API_BASE_URL}/users/update/${currentUser._id}`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser.access_token}`,
+          },
           body: JSON.stringify(formData),
         }
       );
