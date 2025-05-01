@@ -9,12 +9,14 @@ export default defineConfig({
         target: "http://43.204.115.99:3000",
         secure: false,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // Remove /api prefix when forwarding
+        // No rewrite needed since backend expects /api prefix
       },
     },
   },
   plugins: [react()],
   define: {
-    "import.meta.env.VITE_API_BASE_URL": JSON.stringify("/api"), // Set base path as /api
+    "import.meta.env.VITE_API_BASE_URL": JSON.stringify(
+      "http://43.204.115.99:3000/api"
+    ),
   },
 });
