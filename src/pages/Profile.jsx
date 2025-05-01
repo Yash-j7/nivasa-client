@@ -153,7 +153,6 @@ const Profile = () => {
         `${import.meta.env.VITE_API_BASE_URL}/auth/signout`,
         {
           method: "POST", // Changed to POST
-          credentials: "include", // Include cookies if needed
         }
       );
       const data = await res.json();
