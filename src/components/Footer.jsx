@@ -22,7 +22,7 @@ const Footer = () => {
           <ul className="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
             <li>
               <Link
-                to={"https://www.facebook.com/biplobhasan.emon"}
+                to={"https://www.facebook.com/yash.jha.14224"}
                 target="_blank"
                 className="text-brand-blue duration-300 hover:text-white font-heading"
               >
@@ -45,7 +45,9 @@ const Footer = () => {
 
             <li>
               <Link
-                to={"https://www.instagram.com/biplob_hasan_emon/"}
+                to={
+                  "https://www.instagram.com/_yashj_7_6?igsh=MXYzaWR3eWFjM3M2Mw=="
+                }
                 target="_blank"
                 className="text-brand-blue duration-300 hover:text-white font-heading"
               >
@@ -66,7 +68,7 @@ const Footer = () => {
               </Link>
             </li>
 
-            <li>
+            {/* <li>
               <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                 <span className="sr-only">Twitter</span>
 
@@ -79,11 +81,11 @@ const Footer = () => {
                   <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                 </svg>
               </Link>
-            </li>
+            </li> */}
 
             <li>
               <Link
-                to={"https://github.com/Emoncr"}
+                to={"https://github.com/Yash-j7"}
                 target="_blank"
                 className="text-brand-blue duration-300 hover:text-white font-heading"
               >
@@ -105,7 +107,10 @@ const Footer = () => {
             </li>
 
             <li>
-              <Link className="text-brand-blue duration-300 hover:text-white font-heading">
+              <Link
+                className="text-brand-blue duration-300 hover:text-white font-heading"
+                to={"https://dribbble.com/yash_kjha"}
+              >
                 <span className="sr-only">Dribbble</span>
 
                 <svg
@@ -125,132 +130,8 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 border-t-2 border-brand-blue pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:pt-16 font-oswald">
-          <div>
-            <p className="font-bold uppercase font-oswald text-brand-blue">
-              Services
-            </p>
-
-            <ul className="mt-6 space-y-4 text-sm">
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  1on1 Coaching
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Company Review
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Accounts Review
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  HR Consulting
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  SEO Optimisation
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-bold uppercase font-oswald text-brand-blue">
-              Company
-            </p>
-
-            <ul className="mt-6 space-y-4 text-sm">
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  About
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Meet the Team
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Accounts Review
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-bold uppercase font-oswald text-brand-blue">
-              Helpful Links
-            </p>
-
-            <ul className="mt-6 space-y-4 text-sm">
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Contact
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  FAQs
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Live Chat
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-bold uppercase font-oswald text-brand-blue">
-              Legal
-            </p>
-
-            <ul className="mt-6 space-y-4 text-sm">
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Accessibility
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Returns Policy
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Refund Policy
-                </Link>
-              </li>
-
-              <li>
-                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
-                  Hiring Statistics
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <p className="text-xs text-brand-blue font-heading">
-          &copy; 2023. Nivasa . All rights reserved.
+          &copy; 2025. Nivasa . All rights reserved.
         </p>
       </div>
     </footer>
