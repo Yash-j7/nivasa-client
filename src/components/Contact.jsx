@@ -19,7 +19,7 @@ const Contact = ({ listing }) => {
       (async () => {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/users/${listing.userRef}`
+          `${import.meta.env.VITE_API_BASE_URL}/users/${listing.userRef}`
         );
         const json = await res.json();
         if (json.success === false) {
@@ -47,7 +47,7 @@ const Contact = ({ listing }) => {
     try {
       setSending(true);
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/conversation/create`,
+        `${import.meta.env.VITE_API_BASE_URL}/conversation/create`,
         {
           method: "POST",
           headers: {
@@ -65,7 +65,7 @@ const Contact = ({ listing }) => {
       } else {
         // IF Conversation created successfully
         const resMsg = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/message/create`,
+          `${import.meta.env.VITE_API_BASE_URL}/message/create`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

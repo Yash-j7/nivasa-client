@@ -60,7 +60,7 @@ const ListingPage = () => {
     (async () => {
       setLoading(true);
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/${params.id}`
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${params.id}`
       );
       const json = await res.json();
       console.log(json);
@@ -125,7 +125,7 @@ const ListingPage = () => {
   const handlePostDelete = async (postId) => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/delete/${postId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/delete/${postId}`,
         {
           method: "DELETE",
         }

@@ -15,7 +15,7 @@ const Singup = ({ userState }) => {
   const onSubmit = async (formData) => {
     setLoading(true);
     const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`,
+      `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
       {
         method: "POST",
         headers: {

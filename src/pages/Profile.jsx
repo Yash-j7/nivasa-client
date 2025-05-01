@@ -84,9 +84,7 @@ const Profile = () => {
     try {
       dispatch(loddingStart());
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/update/${
-          currentUser._id
-        }`,
+        `${import.meta.env.VITE_API_BASE_URL}/users/update/${currentUser._id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,9 +119,7 @@ const Profile = () => {
     try {
       dispatch(loddingStart());
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/delete/${
-          currentUser._id
-        }`,
+        `${import.meta.env.VITE_API_BASE_URL}/users/delete/${currentUser._id}`,
         {
           method: "DELETE",
         }
@@ -151,7 +147,7 @@ const Profile = () => {
   const handleLogOut = async () => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/auth/signout`
+        `${import.meta.env.VITE_API_BASE_URL}/auth/signout`
       );
       const data = await res.json();
       if (data.success === false) {
@@ -177,9 +173,7 @@ const Profile = () => {
       try {
         setUserPostLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/users/posts/${
-            currentUser._id
-          }`
+          `${import.meta.env.VITE_API_BASE_URL}/users/posts/${currentUser._id}`
         );
         const data = await res.json();
         if (data.success === false) {
@@ -210,7 +204,7 @@ const Profile = () => {
   const handlePostDelete = async (postId) => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/delete/${postId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/delete/${postId}`,
         {
           method: "DELETE",
         }

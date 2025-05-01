@@ -47,7 +47,7 @@ const UpdatePost = () => {
     const getPostInfo = async () => {
       setDataLoading(true);
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/${params.id}`
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${params.id}`
       );
       const data = await res.json();
 
@@ -152,7 +152,7 @@ const UpdatePost = () => {
     try {
       setFormSubmitLoading(true);
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/update/${params.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/update/${params.id}`,
         {
           method: "POST",
           headers: {

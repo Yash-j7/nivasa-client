@@ -95,7 +95,7 @@ const CreatePost = () => {
     try {
       setFormSubmitLoading(true);
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/posts/create`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/create`,
         {
           method: "POST",
           headers: {

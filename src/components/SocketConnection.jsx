@@ -29,7 +29,7 @@ const SocketConnection = () => {
     const loadPrevNotification = async () => {
       try {
         const unseenNotificaton = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/notification/${
+          `${import.meta.env.VITE_API_BASE_URL}/notification/${
             currentUser._id
           }`,
           {
@@ -57,7 +57,7 @@ const SocketConnection = () => {
   const sendNotificationToDB = async (notificationData) => {
     try {
       const sendNotification = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/notification/create`,
+        `${import.meta.env.VITE_API_BASE_URL}/notification/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -19,7 +19,7 @@ const SaleListing = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/posts?type=sale`
+          `${import.meta.env.VITE_API_BASE_URL}/posts?type=sale`
         );
         const json = await res.json();
         if (json.success === false) {

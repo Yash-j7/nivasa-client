@@ -30,7 +30,7 @@ const Chat = ({ conversationInfo }) => {
       try {
         setMessageLoading(true);
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/message?sender=${
+          `${import.meta.env.VITE_API_BASE_URL}/message?sender=${
             trackConversation.sender
           }&receiver=${trackConversation.receiver}`
         );
@@ -97,7 +97,7 @@ const Chat = ({ conversationInfo }) => {
     sendMessageTOSocket();
     try {
       const sendMsgToDB = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/message/create`,
+        `${import.meta.env.VITE_API_BASE_URL}/message/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -128,7 +128,7 @@ const Chat = ({ conversationInfo }) => {
   const handleConversationDelete = async () => {
     try {
       const deleteChat = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/conversation/delete/${_id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/conversation/delete/${_id}`,
         {
           method: "DELETE",
         }
