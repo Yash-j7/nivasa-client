@@ -19,7 +19,7 @@ const OAuth = () => {
 
       //=====Fetch The Data To Backend====//
       const res = await fetch(
-        "${import.meta.env.VITE_API_BASE_URL}/api/auth/google",
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/google`,
         {
           method: "POST",
           headers: {

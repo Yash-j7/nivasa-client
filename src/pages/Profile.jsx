@@ -83,11 +83,16 @@ const Profile = () => {
     // setLoading(true)
     try {
       dispatch(loddingStart());
-      const res = await fetch(`api/users/update/${currentUser._id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/update/${
+          currentUser._id
+        }`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const userData = await res.json();
 
       //===checking reqest success or not ===//
@@ -115,9 +120,14 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       dispatch(loddingStart());
-      const res = await fetch(`api/users/delete/${currentUser._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/delete/${
+          currentUser._id
+        }`,
+        {
+          method: "DELETE",
+        }
+      );
       const resData = await res.json();
       //===checking reqest success or not ===//
       if (resData.success === false) {
@@ -140,7 +150,9 @@ const Profile = () => {
 
   const handleLogOut = async () => {
     try {
-      const res = await fetch("api/auth/signout");
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/signout`
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(signoutFailed(data.message));
@@ -164,7 +176,11 @@ const Profile = () => {
     const loadPost = async () => {
       try {
         setUserPostLoading(true);
-        const res = await fetch(`api/users/posts/${currentUser._id}`);
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/users/posts/${
+            currentUser._id
+          }`
+        );
         const data = await res.json();
         if (data.success === false) {
           toast.error(data.message, {

@@ -94,17 +94,20 @@ const CreatePost = () => {
   const handleFormSubmit = async (data) => {
     try {
       setFormSubmitLoading(true);
-      const res = await fetch("api/posts/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          imgUrl: formData.imgUrl,
-          userRef: currentUser._id,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/posts/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...data,
+            imgUrl: formData.imgUrl,
+            userRef: currentUser._id,
+          }),
+        }
+      );
       const serverRes = await res.json();
       if (serverRes.success === false) {
         toast.error(serverRes.message, {
