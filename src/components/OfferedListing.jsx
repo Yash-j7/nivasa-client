@@ -18,9 +18,7 @@ const OfferedListing = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${
-            import.meta.env.REACT_APP_SERVER_BASE_URL
-          }/api/posts?type=all&offer=true`
+          `${import.meta.env.VITE_API_BASE_URL}/api/posts?type=all&offer=true`
         );
         const json = await res.json();
         if (json.success === false) {

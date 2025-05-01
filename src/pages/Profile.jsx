@@ -194,9 +194,7 @@ const Profile = () => {
   const handlePostDelete = async (postId) => {
     try {
       const res = await fetch(
-        `${
-          import.meta.env.REACT_APP_SERVER_BASE_URL
-        }/api/posts/delete/${postId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/posts/delete/${postId}`,
         {
           method: "DELETE",
         }

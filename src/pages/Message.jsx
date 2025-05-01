@@ -33,7 +33,7 @@ const Message = () => {
       try {
         setConversationLoading(true);
         const res = await fetch(
-          `${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/conversation/${
+          `${import.meta.env.VITE_API_BASE_URL}/api/conversation/${
             currentUser._id
           }`
         );

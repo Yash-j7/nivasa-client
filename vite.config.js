@@ -5,7 +5,7 @@ const apiBase = "http://43.204.115.99:3000";
 export default defineConfig({
   server: {
     proxy: {
-      "${import.meta.env.REACT_APP_SERVER_BASE_URL}/api": {
+      "${import.meta.env.VITE_API_BASE_URL}/api": {
         target: "http://43.204.115.99:3000",
         secure: false,
         changeOrigin: true,

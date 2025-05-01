@@ -26,7 +26,7 @@ const SingIn = () => {
     dispatch(loddingStart());
     try {
       const res = await fetch(
-        "${import.meta.env.REACT_APP_SERVER_BASE_URL}/api/auth/signin",
+        "${import.meta.env.VITE_API_BASE_URL}/api/auth/signin",
         {
           method: "POST",
           headers: {

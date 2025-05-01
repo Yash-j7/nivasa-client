@@ -20,7 +20,7 @@ jobs:
           docker build \
           -t yashkjha/nivasa-react:latest \
           --build-arg REACT_APP_NODE_ENV='production' \
-          --build-arg REACT_APP_SERVER_BASE_URL='${{ secrets.REACT_APP_SERVER_BASE_URL }}' .
+          --build-arg VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}' .
 
       - name: Publish Image to Docker Hub
         run: docker push yashkjha/nivasa-react:latest
@@ -40,4 +40,7 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          docker run -d -p 80:80 --name reactjs-app-container yashkjha/nivasa-react:latest
+          docker run -d -p 80:80 \
+          -e VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}' \
+          --name reactjs-app-container \
+          yashkjha/nivasa-react:latest
