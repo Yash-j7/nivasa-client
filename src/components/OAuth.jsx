@@ -24,7 +24,6 @@ const OAuth = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             name: displayName,
@@ -38,6 +37,8 @@ const OAuth = () => {
         dispatch(signinFailed(userData.message));
         toast(userData.message);
       } else {
+        localStorage.setItem("token", userData.token);
+        localStorage.setItem("user", JSON.stringify(userData.user));
         dispatch(signinSuccess(userData));
         navigate("/home");
       }
