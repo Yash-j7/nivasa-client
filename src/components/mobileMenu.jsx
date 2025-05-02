@@ -32,6 +32,8 @@ const MobileMenu = ({ menuStatus }) => {
         dispatch(signoutFailed(data.message));
         toast.error(data.message, { autoClose: 2000 });
       } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         dispatch(signoutSuccess());
         dispatch(clearSavedListing());
       }
