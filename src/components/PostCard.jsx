@@ -104,7 +104,7 @@ const PostCard = ({ postInfo }) => {
               {offer ? (
                 <p className="font-content truncate">
                   <span className="text-2xl font-bold font-content text-brand-blue ">
-                    ${discountPrice}
+                    ₹{discountPrice}
                   </span>
                   {type === "rent" && (
                     <span className="text-sm text-slate-700">/m</span>

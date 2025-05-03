@@ -240,7 +240,7 @@ const ListingPage = () => {
 
                       {offer ? (
                         <p className="text-2xl font-heading text-brand-blue mt-5  text-bold">
-                          ${discountPrice}{" "}
+                          ₹{discountPrice}{" "}
                           <span>
                             <s className="text-gray-400 text-sm">₹{price}</s>
                           </span>
@@ -348,7 +348,7 @@ const ListingPage = () => {
                               Price
                             </p>
                             <p className="font-heading  text-md lg:text-2xl ">
-                              ${discountPrice}{" "}
+                              ₹{discountPrice}{" "}
                               <span>
                                 <s className="text-gray-400 text-lg">
                                   ₹{price}
