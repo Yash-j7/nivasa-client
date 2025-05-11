@@ -11,6 +11,7 @@ import ListingPage from "./pages/ListingPage";
 import SaveListing from "./pages/SaveListing";
 import Search from "./pages/Search";
 import Message from "./pages/Message";
+import AboutPage from "./pages/AboutPage";
 import SocketConnection from "./components/SocketConnection";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/listing/:id" element={<ListingPage />} />
           <Route path="/search?" element={<Search />} />
+          <Route path="/about" element={<AboutPage />} />
 
           {/* /---------Private Routes-----------/ */}
           <Route element={<PrivateRoute />}>

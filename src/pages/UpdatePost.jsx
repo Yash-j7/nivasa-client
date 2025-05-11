@@ -85,18 +85,20 @@ const UpdatePost = () => {
     if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
       setLoading(true);
       const promises = [];
-      for (let i = 0; i < imageFile.length; i++) {
-        promises.push(uploadToFirebase(imageFile[i]));
-        Promise.all(promises)
-          .then((urls) => {
-            setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) });
-            setLoading(false);
-          })
-          .catch((error) => {
-            setUploadError({ ...uploadError, isError: true, message: error });
-            setLoading(false);
-          });
+      console.log(imageFile);
+      console.log(formData);
+      for (const file of imageFile) {
+        promises.push(uploadToCloudinary(file));
       }
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) });
+          setLoading(false);
+        })
+        .catch((error) => {
+          setUploadError({ ...uploadError, isError: true, message: error });
+          setLoading(false);
+        });
     } else {
       setUploadError({
         ...uploadError,
@@ -107,30 +109,20 @@ const UpdatePost = () => {
     }
   };
 
-  const uploadToFirebase = (file) => {
+  const uploadToCloudinary = (file) => {
     return new Promise((resolve, reject) => {
-      const storage = getStorage(firebaseApp);
-      const fileName = new Date().getTime() + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "nivasa"); // Your Cloudinary preset
+      formData.append("cloud_name", "do02igykn"); // Your Cloudinary cloud name
 
-      //===Start Uploading===//
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          reject("File uploaded Falied");
-        },
-
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            resolve(downloadURL);
-          });
-        }
-      );
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/do02igykn/image/upload",
+          formData
+        )
+        .then((response) => resolve(response.data.secure_url))
+        .catch((error) => reject(`Upload failed: ${error.message}`));
     });
   };
 
