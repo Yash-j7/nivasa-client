@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://43.204.115.99:3000",
+        target: "http://localhost:3000",
         secure: false,
         changeOrigin: true,
         // No rewrite needed since backend expects /api prefix
@@ -16,7 +16,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     "import.meta.env.VITE_API_BASE_URL": JSON.stringify(
-      "http://43.204.115.99:3000/api"
+      "http://localhost:3000/api"
     ),
   },
 });

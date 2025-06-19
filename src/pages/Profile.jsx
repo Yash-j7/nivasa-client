@@ -2,13 +2,7 @@ import { React, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillPlusSquareFill } from "react-icons/bs";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { firebaseApp } from "../firebase.js";
+import axios from "axios";
 import {
   loddingStart,
   signoutFailed,
@@ -44,34 +38,39 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleFileUpload = (file) => {
+  const handleFileUpload = async (file) => {
     if (file) {
-      const fireBaseStorage = getStorage(firebaseApp);
-      const fileName = new Date().getTime() + file.name;
-      const storageRef = ref(fireBaseStorage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setUploadingPerc(Math.round(progress));
-        },
-        (error) => {
-          setFileUploadError(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            setFormData({ ...formData, avatar: downloadUrl });
-          });
-        }
-      );
+      setUploadingPerc(0);
+      setFileUploadError(false);
+      const formDataCloud = new FormData();
+      formDataCloud.append("file", file);
+      formDataCloud.append("upload_preset", "nivasa"); // Your Cloudinary preset
+      formDataCloud.append("cloud_name", "do02igykn"); // Your Cloudinary cloud name
+      try {
+        const response = await axios.post(
+          "https://api.cloudinary.com/v1_1/do02igykn/image/upload",
+          formDataCloud,
+          {
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadingPerc(percentCompleted);
+            },
+          }
+        );
+        setFormData((prev) => ({ ...prev, avatar: response.data.secure_url }));
+        setUploadingPerc(100);
+      } catch (error) {
+        setFileUploadError(true);
+        setUploadingPerc(0);
+      }
     }
   };
 
   useEffect(() => {
-    handleFileUpload(file);
+    if (file) handleFileUpload(file);
+    // eslint-disable-next-line
   }, [file]);
 
   const handleChange = (e) => {

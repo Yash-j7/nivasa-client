@@ -1,11 +1,5 @@
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import React, { useEffect, useState } from "react";
-import { firebaseApp } from "../firebase";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -82,17 +76,17 @@ const UpdatePost = () => {
   };
 
   const handleImageUpload = async () => {
-    if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
+    // Convert FileList to array if needed
+    const files = Array.from(imageFile);
+    if (files.length > 0 && files.length + formData.imgUrl.length < 7) {
       setLoading(true);
       const promises = [];
-      console.log(imageFile);
-      console.log(formData);
-      for (const file of imageFile) {
+      for (const file of files) {
         promises.push(uploadToCloudinary(file));
       }
       Promise.all(promises)
         .then((urls) => {
-          setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) });
+          setFormData((prev) => ({ ...prev, imgUrl: prev.imgUrl.concat(urls) }));
           setLoading(false);
         })
         .catch((error) => {
@@ -127,12 +121,10 @@ const UpdatePost = () => {
   };
 
   const handleDelete = (index) => {
-    setFormData({
-      ...formData,
-      imgUrl: formData.imgUrl.filter(
-        (items) => items != formData.imgUrl[index]
-      ),
-    });
+    setFormData((prev) => ({
+      ...prev,
+      imgUrl: prev.imgUrl.filter((items, i) => i !== index),
+    }));
   };
 
   uploadError.isError &&
@@ -479,7 +471,7 @@ const UpdatePost = () => {
                     <div className="image_upload_container md:p-5 md:border-2 bg-transparent border-dashed rounded-sm md:flex items-center justify-center gap-2">
                       <input
                         onChange={(e) => setImageFile(e.target.files)}
-                        required={formData.imgUrl < 1}
+                        required={formData.imgUrl.length < 1}
                         multiple
                         accept="image/*"
                         type="file"
@@ -488,7 +480,7 @@ const UpdatePost = () => {
                         } w-full`}
                       />
                       <button
-                        disabled={loading}
+                        disabled={loading || imageFile.length === 0}
                         onClick={handleImageUpload}
                         type="button"
                         className={`w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading  ${
